@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item
+        android:id="@+id/home_tab"
+        android:title="Home"/>
+
+    <item
+        android:id="@+id/cat_tab"
+        android:title="Category"/>
+
+    <item
+        android:id="@+id/fav_tab"
+        android:title="Favourites"/>
+
+    <item android:title="">
+        <menu>
+
+            <item
+                android:id="@+id/share_tab"
+                android:title="Share App"
+                android:icon="@drawable/icon_share"/>
+
+            <item
+                android:id="@+id/rate_tab"
+                android:title="Rate This App"
+                android:icon="@drawable/icon_rating"/>
+
+            <item
+                android:id="@+id/about_tab"
+                android:title="About"
+                android:icon="@drawable/icon_about"/>
+
+            <item
+                android:id="@+id/privacy_tab"
+                android:title="Privacy and Policy"
+                android:icon="@drawable/icon_privacy"/>
+
+            <item
+                android:id="@+id/setting_tab"
+                android:title="Settings"
+                android:icon="@drawable/icon_setting"/>
+        </menu>
+    </item>
+
+</menu>

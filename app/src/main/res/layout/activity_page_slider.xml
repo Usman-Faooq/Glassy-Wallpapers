@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PageSliderActivity"
+    android:id="@+id/mainlayout"
+    android:background="@color/black">
+
+
+    <ImageView
+        android:id="@+id/pager_backbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_back"
+        android:layout_margin="5sp"
+        android:padding="10sp"
+        app:tint="@color/white" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/sliderviewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:paddingTop="80sp"
+        android:paddingBottom="60sp"
+        android:paddingRight="70sp"
+        android:paddingLeft="70sp"
+        android:layout_above="@id/buttons"/>
+
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/demo"
+        android:background="#5B000000"
+        android:orientation="horizontal"
+        android:paddingLeft="20sp"
+        android:paddingRight="20sp"
+        android:paddingTop="15sp"
+        android:paddingBottom="15sp">
+
+
+        <ImageView
+            android:id="@+id/slider_fav_wallpaper"
+            android:layout_width="0sp"
+            android:layout_height="20sp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/icon_heart"/>
+
+        <ImageView
+            android:id="@+id/slider_download_wallpaper"
+            android:layout_width="0sp"
+            android:layout_height="20sp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/icon_download"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/slider_fullscreen_wallpaper"
+            android:layout_width="0sp"
+            android:layout_height="30sp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/icon_fullscreen"
+            app:tint="@color/white"/>
+
+
+        <ImageView
+            android:id="@+id/slider_share_wallpaper"
+            android:layout_width="0sp"
+            android:layout_height="20sp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/icon_share"
+            app:tint="@color/white"/>
+
+        <ImageView
+            android:id="@+id/slider_moreoption_wallpaper"
+            android:layout_width="0sp"
+            android:layout_height="20sp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/icon_moreoptions"
+            app:tint="@color/white"/>
+    </LinearLayout>
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/pageractivityadView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-9459273729937335/5420702002"></com.google.android.gms.ads.AdView>
+    <View
+        android:id="@+id/demo"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="invisible" />
+
+</RelativeLayout>

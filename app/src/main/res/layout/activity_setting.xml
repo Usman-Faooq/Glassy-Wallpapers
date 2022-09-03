@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingActivity"
+    android:background="@color/purple_500">
+
+
+    <ImageView
+        android:id="@+id/settinglogo"
+        android:layout_width="match_parent"
+        android:layout_height="150sp"
+        android:layout_marginTop="10sp"
+        android:padding="10sp"
+        android:src="@drawable/setting_icon" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/settinglogo"
+        android:layout_marginTop="10sp"
+        app:cardCornerRadius="25sp"
+        android:layout_marginBottom="-20sp"
+        app:cardElevation="10sp"
+        app:cardBackgroundColor="@color/black">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/demoview"
+                android:layout_width="match_parent"
+                android:layout_height="20sp"
+                android:layout_margin="10sp"/>
+
+            <TextView
+                android:id="@+id/share_friend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/demoview"
+                android:layout_marginTop="10sp"
+                android:drawableLeft="@drawable/icon_share"
+                android:drawableRight="@drawable/icon_angle_right"
+                android:drawablePadding="20sp"
+                android:drawableTint="@color/white"
+                android:fontFamily="sans-serif"
+                android:paddingLeft="40sp"
+                android:paddingTop="10sp"
+                android:paddingRight="50sp"
+                android:paddingBottom="10sp"
+                android:privateImeOptions="30sp"
+                android:text="Share with Your Friend"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/aboutus"
+                android:layout_below="@id/share_friend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="About Us"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_marginTop="10sp"
+                android:paddingTop="10sp"
+                android:paddingBottom="10sp"
+                android:paddingLeft="40sp"
+                android:paddingRight="50sp"
+                android:privateImeOptions="30sp"
+                android:drawablePadding="20sp"
+                android:drawableLeft="@drawable/icon_about"
+                android:drawableTint="@color/white"
+                android:drawableRight="@drawable/icon_angle_right"/>
+
+            <TextView
+                android:id="@+id/privacyapp"
+                android:layout_below="@id/aboutus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Privacy and Policy"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_marginTop="10sp"
+                android:paddingTop="10sp"
+                android:paddingBottom="10sp"
+                android:paddingLeft="40sp"
+                android:paddingRight="50sp"
+                android:privateImeOptions="30sp"
+                android:drawablePadding="20sp"
+                android:drawableLeft="@drawable/icon_privacy"
+                android:drawableTint="@color/white"
+                android:drawableRight="@drawable/icon_angle_right"/>
+
+            <TextView
+                android:id="@+id/rateapp"
+                android:layout_below="@id/privacyapp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rate This App"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_marginTop="10sp"
+                android:paddingTop="10sp"
+                android:paddingBottom="10sp"
+                android:paddingLeft="40sp"
+                android:paddingRight="50sp"
+                android:privateImeOptions="30sp"
+                android:drawablePadding="20sp"
+                android:drawableLeft="@drawable/icon_rating"
+                android:drawableTint="@color/white"
+                android:drawableRight="@drawable/icon_angle_right"/>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
