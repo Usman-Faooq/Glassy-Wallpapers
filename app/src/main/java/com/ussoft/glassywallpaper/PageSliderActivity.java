@@ -167,7 +167,6 @@ public class PageSliderActivity extends AppCompatActivity {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "GlassyWallpaper").allowMainThreadQueries().build();
         UserDao userDao = db.dao();
-
         //Set BackgroundWallpaper...
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -175,23 +174,17 @@ public class PageSliderActivity extends AppCompatActivity {
                 selectedImage = wallpapers.get(position);
                 setBackgroundWallpaper(selectedImage);
                 itemPosition = viewPager2.getCurrentItem();
-                int imageID = Integer.parseInt(wallpapers.get(position).substring(33, 41));
-                check = userDao.is_Exist(imageID);
+                //int imageID = Integer.parseInt(wallpapers.get(position).substring(33, 40));
+                check = userDao.is_Exist(selectedImage);
                 iconFav.setOnClickListener(view -> {
                     if (check){
-                        userDao.deleteWallpaper(imageID);
-                        finish();
-                        overridePendingTransition(0,0);
-                        startActivity(getIntent());
-                        viewPager2.setCurrentItem(itemPosition);
-                        overridePendingTransition(0,0);
+                        userDao.deleteWallpaper(selectedImage);
+                        iconFav.setImageResource(R.drawable.icon_heart);
+                        check = false;
                     }else{
-                        userDao.insert(new FavImages(imageID, wallpapers.get(position)));
-                        finish();
-                        overridePendingTransition(0,0);
-                        startActivity(getIntent());
-                        viewPager2.setCurrentItem(itemPosition);
-                        overridePendingTransition(0,0);
+                        userDao.insert(new FavImages(selectedImage));
+                        iconFav.setImageResource(R.drawable.icon_heart_filled);
+                        check = true;
                     }
                 });
                 if (check){

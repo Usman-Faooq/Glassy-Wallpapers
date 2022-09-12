@@ -14,10 +14,11 @@ public interface UserDao {
     @Query("Select * from FavImages")
     List<FavImages> getAllWallpapers();
 
-    @Query("Select Exists(Select * from FavImages where ImageID = :id)")
-    Boolean is_Exist(int id);
+    @Query("Select Exists(Select * from FavImages where ImageURL = :url)")
+    Boolean is_Exist(String url);
 
-    @Query("Delete from FavImages where ImageID = :id")
-    void deleteWallpaper(int id);
+    @Query("Delete from FavImages where ImageURL = :url")
+    void deleteWallpaper(String url);
+
 
 }

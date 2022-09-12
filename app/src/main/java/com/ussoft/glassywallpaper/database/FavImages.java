@@ -9,23 +9,11 @@ public class FavImages {
     @PrimaryKey(autoGenerate = true)
     int id;
 
-    @ColumnInfo(name = "ImageID")
-    int imageID;
-
     @ColumnInfo(name = "ImageURL")
     String imageURL;
 
-    public FavImages(int imageID, String imageURL) {
-        this.imageID = imageID;
+    public FavImages(String imageURL) {
         this.imageURL = imageURL;
-    }
-
-    public int getImageID() {
-        return imageID;
-    }
-
-    public void setImageID(int imageID) {
-        this.imageID = imageID;
     }
 
     public String getImageURL() {

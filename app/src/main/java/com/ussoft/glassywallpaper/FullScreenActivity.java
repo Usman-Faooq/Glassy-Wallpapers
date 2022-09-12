@@ -119,9 +119,14 @@ public class FullScreenActivity extends AppCompatActivity {
                 .into(new CustomTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        if (mInterstitialAd != null) {
+                            mInterstitialAd.show(FullScreenActivity.this);
+                        } else {
+                            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+                        }
                         try {
                             File storage = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-                            File dir = new File(storage.getAbsolutePath() + "/Wallpapers");
+                            File dir = new File(storage.getAbsolutePath() + "/Glassy Wallpapers");
                             if (!dir.exists()){
                                 dir.mkdirs();
                             }
