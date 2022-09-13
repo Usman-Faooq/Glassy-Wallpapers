@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
@@ -13,12 +14,12 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdListener;
+import com.facebook.ads.AdSize;
+import com.facebook.ads.AdView;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
 import com.ussoft.glassywallpaper.adapter.WallpaperAdapter;
 import com.ussoft.glassywallpaper.api.RetrofitClient;
 import com.ussoft.glassywallpaper.dataclasses.WallpaperData;
@@ -44,53 +45,39 @@ public class CategoryActivity extends AppCompatActivity {
     NestedScrollView nestedScrollView;
     ShimmerFrameLayout shimmerFrameLayout;
     ProgressBar progressBar;
-    AdView mAdView;
+    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
-        MobileAds.initialize(this, initializationStatus -> {
-        });
-        mAdView = findViewById(R.id.categoryadView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-        mAdView.setAdListener(new AdListener() {
+        adView = new AdView(this, "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID", AdSize.BANNER_HEIGHT_50);
+        LinearLayout adContainer = (LinearLayout) findViewById(R.id.categoryBannerAdContainer);
+        adContainer.addView(adView);
+        adView.loadAd();
+        AdListener adListener = new AdListener() {
             @Override
-            public void onAdClicked() {
-                super.onAdClicked();
+            public void onError(Ad ad, AdError adError) {
+                adView.loadAd();
             }
 
             @Override
-            public void onAdClosed() {
-                // Code to be executed when the user is about to return
-                // to the app after tapping on an ad.
+            public void onAdLoaded(Ad ad) {
+
             }
 
             @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError adError) {
-                super.onAdFailedToLoad(adError);
-                mAdView.loadAd(adRequest);
+            public void onAdClicked(Ad ad) {
+
             }
 
             @Override
-            public void onAdImpression() {
-                // Code to be executed when an impression is recorded
-                // for an ad.
-            }
+            public void onLoggingImpression(Ad ad) {
 
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
             }
+        };
 
-            @Override
-            public void onAdOpened() {
-                super.onAdOpened();
-            }
-        });
 
         toolbar = findViewById(R.id.categorytoolbar);
         setSupportActionBar(toolbar);
@@ -106,9 +93,6 @@ public class CategoryActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         fetchWallpapers(pageNumber, searchText);
         setPagination(searchText);
-
-
-
 
     }
 

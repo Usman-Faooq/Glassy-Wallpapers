@@ -2,11 +2,9 @@ package com.ussoft.glassywallpaper;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -17,8 +15,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -29,16 +27,14 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdListener;
+import com.facebook.ads.AdSize;
+import com.facebook.ads.AdView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.ussoft.glassywallpaper.adapter.TabLayoutPageAdapter;
-
-import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
     Toolbar toolbar;
-    AdView mAdView;
+    private AdView adView;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -62,52 +58,38 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
 
-        MobileAds.initialize(this, initializationStatus -> {
-        });
-        mAdView = findViewById(R.id.mainactivityadView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-        mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdClicked() {
-                super.onAdClicked();
-            }
-
-            @Override
-            public void onAdClosed() {
-                // Code to be executed when the user is about to return
-                // to the app after tapping on an ad.
-            }
-
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError adError) {
-                super.onAdFailedToLoad(adError);
-                mAdView.loadAd(adRequest);
-            }
-
-            @Override
-            public void onAdImpression() {
-                // Code to be executed when an impression is recorded
-                // for an ad.
-            }
-
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-            }
-
-            @Override
-            public void onAdOpened() {
-                super.onAdOpened();
-            }
-        });
-
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawerlayout);
         navigationView = findViewById(R.id.navigation_view);
         tabLayout = findViewById(R.id.tablayout);
         viewPager = findViewById(R.id.main_activity_viewpager);
+
+        adView = new AdView(this, "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID", AdSize.BANNER_HEIGHT_50);
+        LinearLayout adContainer = (LinearLayout) findViewById(R.id.mainBannerAdContainer);
+        adContainer.addView(adView);
+        adView.loadAd();
+        AdListener adListener = new AdListener() {
+            @Override
+            public void onError(Ad ad, AdError adError) {
+                adView.loadAd();
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+
+            }
+        };
 
 
         tabLayoutPageAdapter = new TabLayoutPageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
@@ -167,12 +149,7 @@ public class MainActivity extends AppCompatActivity {
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
                 case R.id.privacy_tab:
-                    Dialog privacyDialog = new Dialog(MainActivity.this);
-                    privacyDialog.setContentView(R.layout.cardview_privacy);
-                    privacyDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    ImageView pexItButton = privacyDialog.findViewById(R.id.exit_privacy);
-                    pexItButton.setOnClickListener(view -> privacyDialog.dismiss());
-                    privacyDialog.show();
+                    startActivity(new Intent(this, PrivacyPolicyActivity.class));
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
                 case R.id.setting_tab:
@@ -183,29 +160,6 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
-
-
-        //Notification Work...
-        NotificationChannel();
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 8);
-        calendar.set(Calendar.MINUTE, 00);
-        calendar.set(Calendar.SECOND, 00);
-
-        if (Calendar.getInstance().after(calendar)) {
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
-        }
-
-        Intent intent = new Intent(MainActivity.this, MemoBroadcast.class);
-        @SuppressLint("UnspecifiedImmutableFlag") PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-        }
-
     }
 
 
