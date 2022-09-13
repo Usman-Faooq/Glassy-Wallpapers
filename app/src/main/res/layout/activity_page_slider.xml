@@ -97,7 +97,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-9459273729937335/5420702002"></com.google.android.gms.ads.AdView>
+        ads:adUnitId="ca-app-pub-2186470249828752/1017440026">
+
+    </com.google.android.gms.ads.AdView>
     <View
         android:id="@+id/demo"
         android:layout_width="match_parent"

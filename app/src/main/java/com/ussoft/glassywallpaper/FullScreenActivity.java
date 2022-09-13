@@ -51,7 +51,7 @@ public class FullScreenActivity extends AppCompatActivity {
 
         //Interstitial Ad Loading;
         AdRequest adRequest = new AdRequest.Builder().build();
-        InterstitialAd.load(this,"ca-app-pub-9459273729937335/4860646418", adRequest,
+        InterstitialAd.load(this,"ca-app-pub-2186470249828752/4469352452", adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {

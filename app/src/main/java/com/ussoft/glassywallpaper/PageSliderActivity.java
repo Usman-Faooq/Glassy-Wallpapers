@@ -112,7 +112,7 @@ public class PageSliderActivity extends AppCompatActivity {
         });
 
         //Interstitial Ad / full screen Ad
-        InterstitialAd.load(this,"ca-app-pub-9459273729937335/7668688879", adRequest,
+        InterstitialAd.load(this,"ca-app-pub-2186470249828752/5782434122", adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
