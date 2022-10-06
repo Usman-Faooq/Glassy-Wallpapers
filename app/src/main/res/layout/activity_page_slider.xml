@@ -90,16 +90,6 @@
             android:src="@drawable/icon_moreoptions"
             app:tint="@color/white"/>
     </LinearLayout>
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/pageractivityadView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-2186470249828752/1017440026">
-
-    </com.google.android.gms.ads.AdView>
     <View
         android:id="@+id/demo"
         android:layout_width="match_parent"

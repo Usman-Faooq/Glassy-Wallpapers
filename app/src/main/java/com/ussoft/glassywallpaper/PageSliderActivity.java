@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -33,13 +32,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.ussoft.glassywallpaper.adapter.PagerSliderAdapter;
 import com.ussoft.glassywallpaper.database.AppDatabase;
 import com.ussoft.glassywallpaper.database.FavImages;
@@ -63,70 +55,10 @@ public class PageSliderActivity extends AppCompatActivity {
     int itemPosition;
     String selectedImage;
     Boolean check;
-    AdView mAdView;
-    InterstitialAd mInterstitialAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_slider);
-
-        MobileAds.initialize(this, initializationStatus -> {
-        });
-        //Banner Ad
-        mAdView = findViewById(R.id.pageractivityadView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-        mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdClicked() {
-                super.onAdClicked();
-            }
-
-            @Override
-            public void onAdClosed() {
-                // Code to be executed when the user is about to return
-                // to the app after tapping on an ad.
-            }
-
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError adError) {
-                super.onAdFailedToLoad(adError);
-                mAdView.loadAd(adRequest);
-            }
-
-            @Override
-            public void onAdImpression() {
-                // Code to be executed when an impression is recorded
-                // for an ad.
-            }
-
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-            }
-
-            @Override
-            public void onAdOpened() {
-                super.onAdOpened();
-            }
-        });
-
-        //Interstitial Ad / full screen Ad
-        InterstitialAd.load(this,"ca-app-pub-2186470249828752/5782434122", adRequest,
-                new InterstitialAdLoadCallback() {
-                    @Override
-                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                        mInterstitialAd = interstitialAd;
-                        onAdLoaded(mInterstitialAd);
-                    }
-
-                    @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        mInterstitialAd = null;
-                        onAdFailedToLoad(loadAdError);
-                        onAdLoaded(mInterstitialAd);
-                    }
-                });
 
         //remove duplicate from the list
         wallpapers = getIntent().getStringArrayListExtra("WallpaperSrc");
@@ -218,11 +150,6 @@ public class PageSliderActivity extends AppCompatActivity {
 
         //Download Button
         iconDownload.setOnClickListener(view -> {
-            if (mInterstitialAd != null) {
-                mInterstitialAd.show(PageSliderActivity.this);
-            } else {
-                Log.d("TAG", "The interstitial ad wasn't ready yet.");
-            }
             String imageLink = wallpapers.get(viewPager2.getCurrentItem());
             saveWallpaper(imageLink);
         });
@@ -260,11 +187,6 @@ public class PageSliderActivity extends AppCompatActivity {
         LinearLayout saveBtn = dialog.findViewById(R.id.savebtn);
 
         setWallpaper.setOnClickListener(view -> {
-            if (mInterstitialAd != null) {
-                mInterstitialAd.show(PageSliderActivity.this);
-            } else {
-                Log.d("TAG", "The interstitial ad wasn't ready yet.");
-            }
             String imageLink = wallpapers.get(viewPager2.getCurrentItem());
             WallpaperManager manager = WallpaperManager.getInstance(getApplicationContext());
             Glide.with(getApplicationContext())
@@ -295,11 +217,6 @@ public class PageSliderActivity extends AppCompatActivity {
         });
 
         saveBtn.setOnClickListener(view -> {
-            if (mInterstitialAd != null) {
-                mInterstitialAd.show(PageSliderActivity.this);
-            } else {
-                Log.d("TAG", "The interstitial ad wasn't ready yet.");
-            }
             String imageLink = wallpapers.get(viewPager2.getCurrentItem());
             saveWallpaper(imageLink);
             dialog.dismiss();
