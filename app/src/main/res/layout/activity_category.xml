@@ -22,6 +22,7 @@
         android:layout_height="match_parent"
         app:shimmer_duration="1000"
         android:paddingLeft="8sp"
+        android:layout_above="@id/categoryadView"
         android:layout_below="@id/categorytoolbar">
 
         <LinearLayout
@@ -51,15 +52,19 @@
 
     </androidx.core.widget.NestedScrollView>
     <ProgressBar
-        android:layout_alignParentBottom="true"
         android:id="@+id/category_loadingbar"
         android:layout_width="match_parent"
+        android:layout_above="@id/categoryadView"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:id="@+id/categoryBannerAdContainer"
-        android:layout_width="match_parent"
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/categoryadView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-2186470249828752/3347842479">
+
+    </com.google.android.gms.ads.AdView>
 </RelativeLayout>

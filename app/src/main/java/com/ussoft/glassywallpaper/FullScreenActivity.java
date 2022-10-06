@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -19,6 +20,10 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.ussoft.glassywallpaper.adapter.FullScreenAdapter;
 
 import java.io.File;
@@ -35,6 +40,7 @@ public class FullScreenActivity extends AppCompatActivity {
     ImageView downloadBtn;
     ImageView backButton;
     String imageURL;
+    InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,24 @@ public class FullScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_full_screen);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
+        //Interstitial Ad Loading;
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(this,"ca-app-pub-2186470249828752/4469352452", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        mInterstitialAd = interstitialAd;
+                        onAdLoaded(mInterstitialAd);
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        mInterstitialAd = null;
+                        onAdFailedToLoad(loadAdError);
+                        onAdLoaded(mInterstitialAd);
+                    }
+                });
 
         viewPager2 = findViewById(R.id.fullscreen_viewpager);
         int currentItemPosition =getIntent().getIntExtra("CurrentPosition", 0);
@@ -64,6 +88,11 @@ public class FullScreenActivity extends AppCompatActivity {
         });
 
         setWallpaper.setOnClickListener(view -> {
+            if (mInterstitialAd != null) {
+                mInterstitialAd.show(FullScreenActivity.this);
+            } else {
+                Log.d("TAG", "The interstitial ad wasn't ready yet.");
+            }
             WallpaperManager manager = WallpaperManager.getInstance(getApplicationContext());
             Glide.with(getApplicationContext())
                     .asBitmap().load(wallpapers.get(viewPager2.getCurrentItem()))
@@ -90,6 +119,11 @@ public class FullScreenActivity extends AppCompatActivity {
                 .into(new CustomTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        if (mInterstitialAd != null) {
+                            mInterstitialAd.show(FullScreenActivity.this);
+                        } else {
+                            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+                        }
                         try {
                             File storage = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
                             File dir = new File(storage.getAbsolutePath() + "/Glassy Wallpapers");
