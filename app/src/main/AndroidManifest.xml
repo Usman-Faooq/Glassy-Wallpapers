@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.ussoft.glassywallpaper">
+    package="com.ussoft.gw_wallpaper">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+    
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,22 +16,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GlassyWallpaper"
-        tools:ignore="ExtraText">
+        tools:ignore="ExtraText"
+        android:networkSecurityConfig="@xml/network_security_config">
         <activity
-            android:name=".SettingActivity"
+            android:name="com.ussoft.gw_wallpaper.SettingActivity"
             android:exported="true" />
         <activity
-            android:name=".CategoryActivity"
+            android:name="com.ussoft.gw_wallpaper.CategoryActivity"
             android:exported="true"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName="com.ussoft.gw_wallpaper.MainActivity" />
         <activity
-            android:name=".FullScreenActivity"
+            android:name="com.ussoft.gw_wallpaper.FullScreenActivity"
             android:exported="true" />
         <activity
-            android:name=".PageSliderActivity"
+            android:name="com.ussoft.gw_wallpaper.PageSliderActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.ussoft.gw_wallpaper.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,16 +41,8 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".MemoBroadcast"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            </intent-filter>
-        </receiver>
-
         <activity
-            android:name=".SpleshScreen"
+            android:name="com.ussoft.gw_wallpaper.SpleshScreen"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/SplashScreen">
@@ -64,10 +55,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-2186470249828752~3671523526"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:theme="@android:style/Theme.Translucent"/>
-
+            android:value="ca-app-pub-3304369012094568~1892692942"/>
 
         <meta-data
             android:name="preloaded_fonts"

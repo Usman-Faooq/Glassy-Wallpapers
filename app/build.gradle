@@ -3,14 +3,14 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    compileSdk 32
 
     defaultConfig {
-        applicationId "com.ussoft.glassywallpaper"
+        applicationId "com.ussoft.gw_wallpaper"
         minSdk 21
-        targetSdk 33
-        versionCode 3
-        versionName "1.1"
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -25,7 +25,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    namespace 'com.ussoft.glassywallpaper'
+    namespace 'com.ussoft.gw_wallpaper'
 }
 
 dependencies {
@@ -49,9 +49,12 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.10'
     implementation 'jp.wasabeef:glide-transformations:4.3.0'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
-    implementation 'com.facebook.android:audience-network-sdk:6.+'
     def room_version = '2.4.3'
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
+
+    implementation 'com.google.android.gms:play-services-ads:21.2.0'
+    implementation 'com.google.ads.mediation:facebook:6.11.0.1'
+
 }

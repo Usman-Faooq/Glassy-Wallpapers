@@ -56,7 +56,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/tablayout"
+            android:layout_above="@id/MainBanner"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/MainBanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-3304369012094568/3809507326">
+        </com.google.android.gms.ads.AdView>
 
     </RelativeLayout>
 
